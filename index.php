@@ -2,7 +2,7 @@
 
 $hostip = $_SERVER['REMOTE_ADDR'];
 $useragent = $_SERVER['HTTP_USER_AGENT']; 
-$language = substr( $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+$language = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
 
 // Simple pattern matching
 function getBrowser( $useragent ) {
@@ -43,7 +43,7 @@ function ipCheck() {
 
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $language ?>">
+<html lang="<?php echo substr( $language, 0, 2) ?>">
 <head>
 <title>Browser Information</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -51,8 +51,8 @@ function ipCheck() {
 <style type="text/css">
 body {
   background: #FFFFFF;
-  background: -moz-linear-gradient(top, #ECECEC, #FFFFFF 60%) no-repeat;
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ECECEC), color-stop(.60, #FFFFFF)) no-repeat;
+  background: -moz-linear-gradient(top, #FFFFFF, #ECECEC 60%) no-repeat;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFFFFF), color-stop(.60, #ECECEC)) no-repeat;
 }
 a { color:#2583ad; text-decoration:none; font-weight:bold; }
 a:hover { color:#d54e21; }
@@ -75,39 +75,49 @@ h1 { border-bottom:1px solid #dadada; color:#666; font:125% Georgia,"Times New R
   border:1px solid #dfdfdf;
 }
 #content p { font-style:italic; margin:10px 0 0 -3px; }
-.ip { color: #666; font-weight:bold; font-size:22px; }
+.ip { color: #666; font-weight:bold; }
 .right { float:right; }
 .clear { clear:both; }
+.center { text-align:center; }
+
+footer { margin-top:35px; }
+
 </style>
 </head>
 <body>
 
 <div id="content">
 
-<div id="main">
+<header>
+</header>
 
-  <h1>Browser Information</h1>
-  <p>Informationen zu dem verwendeten Browser und der vom Internetanbieter vergebenen IP-Adresse. Es werden keine Daten gespeichert, diese Seite stellt einen reinen Informationsdienst zu Verf&uuml;hgung. </p>
-
-  <h1>Die von Ihnen verwendete IP Addresse</h1>
+<article>
+	
+  <h1>Ihre IP Addresse</h1>
   <p>
   	<?php echo "<span class='ip'>" . $hostip . "</span>"; ?>
   	<?php if( $hostip != ipCheck() ) echo " ( intern " . ipCheck() . " )"; ?>
   </p>
-
-  <h1>Details &uuml;ber den verwendeten Browser</h1>
-  <p>Browser: <?php echo getBrowser( $useragent ); ?></p>
-  <p>User-Agent: <?php echo $useragent; ?></p>
-  <p>Sprache: <?php echo $language; ?></p>
-
-  <h1>Der von Ihnen verwendeter Hostname</h1>
+	
+	<h1>Der verwendete Hostname</h1>
   <p><?php echo GetHostByAddr($hostip); ?></p>
+  
+  <h1>Details &uuml;ber den verwendeten Browser</h1>
+<!--  <p>Browser: <?php // echo getBrowser( $useragent ); ?></p> -->
+  <p><?php echo $useragent; ?></p>
+  
+  <h1>Vom Browser verwendete Sprache</h1>
+  <p><?php echo $language; ?></p>
 
-  <p class="right"><a href="http://mvattersen.de/">mvattersen.de</a></p>
-  
-  <div class="clear"></div>
-  
-</div>
+	<h1>Allgemeines</h1>
+	<p>Informationen zu dem verwendeten Browser und der vom Internetanbieter vergebenen IP-Adresse. Es werden keine Daten gespeichert, diese Seite stellt einen reinen Informationsdienst zu Verf&uuml;gung. </p>
+</article>
+
+<footer>
+	<p class="right"><a href="http://mvattersen.de/">mvattersen.de</a></p>
+  <p><a href="https://github.com/vaddi/webinfo">webinfo</a> auf github.com</p>
+</footer>
+
 </div>
 
 
