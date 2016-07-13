@@ -2,6 +2,6 @@
 
 A small PHP Website to show IP-Address, User-Agent and Hostname. 
 
-See: [SITE][]
+See: [www.mvattersen.de][]
 
-[SITE]: http://www.mvattersen.de/
+[www.mvattersen.de]: http://www.mvattersen.de/
